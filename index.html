@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinterest-Style Masonry Layout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="left-panel" id="leftPanel" aria-label="Primary Navigation">
+        <div class="lp-brand" title="Account IQ">
+            <span class="lp-logo">AI</span>
+        </div>
+        <nav class="lp-nav">
+            <button class="lp-item active" aria-label="Home" title="Home">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z"/>
+                </svg>
+            </button>
+            <button class="lp-item" aria-label="Boards" title="Boards">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="2"/>
+                    <rect x="14" y="3" width="7" height="7" rx="2"/>
+                    <rect x="14" y="14" width="7" height="7" rx="2"/>
+                    <rect x="3" y="14" width="7" height="7" rx="2"/>
+                </svg>
+            </button>
+            <button class="lp-item" aria-label="Layers" title="Layers">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                    <polyline points="2 12 12 17 22 12"/>
+                    <polyline points="2 17 12 22 22 17"/>
+                </svg>
+            </button>
+            <button class="lp-item" aria-label="Search" title="Search">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"/>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+            </button>
+            <button class="lp-item" aria-label="Messages" title="Messages">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a4 4 0 0 1-4 4H8l-4 4V7a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4z"/>
+                </svg>
+            </button>
+        </nav>
+        <div class="lp-footer">
+            <button class="lp-item" aria-label="Settings" title="Settings">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 3.6 15a1.65 1.65 0 0 0-1.51-1H2a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8 3.6a1.65 1.65 0 0 0 1-1.51V2a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 15 3.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 20.4 8c.36.33.59.8.59 1.31V10a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+            </button>
+            <button class="lp-avatar" aria-label="Profile" title="Profile">M</button>
+        </div>
+    </div>
+    <div class="app-container">
+        <header class="main-header" id="mainHeader">
+            <div class="header-content">
+                <h1>Pinterest-Style Masonry Layout</h1>
+                <p>Drag cards between columns, resize them, and span across multiple columns</p>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="grid-container" id="gridContainer">
+            <div class="column" id="column-0" data-column="0">
+                <div class="column-header">Column 1</div>
+                <div class="card" draggable="true" data-card-id="card-1">
+                    <div class="card-header">
+                        <h3>Sample Card 1</h3>
+                        <div class="card-controls">
+                            <div class="span-controls">
+                                <button class="span-btn" data-span="1" title="Single column">1</button>
+                                <button class="span-btn" data-span="2" title="Span 2 columns">2</button>
+                                <button class="span-btn" data-span="3" title="Span 3 columns">3</button>
+                            </div>
+                            <div class="resize-handle" data-resize="card-1"></div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>This is a sample card with some content. You can drag it to other columns or resize it using the handle in the corner.</p>
+                    </div>
+                </div>
+                
+                <div class="card card-span-2" draggable="true" data-card-id="card-2" data-span="2">
+                    <div class="card-header">
+                        <h3>Wide Image Card (Spans 2 Columns)</h3>
+                        <div class="card-controls">
+                            <div class="span-controls">
+                                <button class="span-btn" data-span="1" title="Single column">1</button>
+                                <button class="span-btn active" data-span="2" title="Span 2 columns">2</button>
+                                <button class="span-btn" data-span="3" title="Span 3 columns">3</button>
+                            </div>
+                            <div class="resize-handle" data-resize="card-2"></div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <img src="https://picsum.photos/600/200?random=1" alt="Wide sample image" />
+                        <p>This card spans across 2 columns, demonstrating the multi-column spanning feature.</p>
+                    </div>
+                </div>
+                
+                <div class="card" draggable="true" data-card-id="card-3">
+                    <div class="card-header">
+                        <h3>Short Card</h3>
+                        <div class="resize-handle" data-resize="card-3"></div>
+                    </div>
+                    <div class="card-content">
+                        <p>Brief content.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column" id="column-1" data-column="1">
+                <div class="column-header">Column 2</div>
+                <div class="card" draggable="true" data-card-id="card-4">
+                    <div class="card-header">
+                        <h3>Tall Card</h3>
+                        <div class="resize-handle" data-resize="card-4"></div>
+                    </div>
+                    <div class="card-content">
+                        <p>This is a taller card with more content to demonstrate the masonry layout effect. The content can vary in height and the layout will adjust accordingly.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                
+                <div class="card" draggable="true" data-card-id="card-5">
+                    <div class="card-header">
+                        <h3>Medium Card</h3>
+                        <div class="resize-handle" data-resize="card-5"></div>
+                    </div>
+                    <div class="card-content">
+                        <img src="https://picsum.photos/300/150?random=2" alt="Another image" />
+                        <p>Another card with different dimensions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column" id="column-2" data-column="2">
+                <div class="column-header">Column 3</div>
+                <div class="card" draggable="true" data-card-id="card-6">
+                    <div class="card-header">
+                        <h3>List Card</h3>
+                        <div class="resize-handle" data-resize="card-6"></div>
+                    </div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Feature 1</li>
+                            <li>Feature 2</li>
+                            <li>Feature 3</li>
+                            <li>Feature 4</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card" draggable="true" data-card-id="card-7">
+                    <div class="card-header">
+                        <h3>Quote Card</h3>
+                        <div class="resize-handle" data-resize="card-7"></div>
+                    </div>
+                    <div class="card-content">
+                        <blockquote>
+                            "The best way to predict the future is to create it."
+                        </blockquote>
+                        <p>- Peter Drucker</p>
+                    </div>
+                </div>
+                
+                <div class="card" draggable="true" data-card-id="card-8">
+                    <div class="card-header">
+                        <h3>Another Card</h3>
+                        <div class="resize-handle" data-resize="card-8"></div>
+                    </div>
+                    <div class="card-content">
+                        <p>More sample content to fill out the layout.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-panel" id="chatPanel">
+                <div class="chat-header">
+                    <h3>AI Assistant</h3>
+                    <button class="chat-toggle" id="chatToggle" title="Toggle chat">💬</button>
+                </div>
+                <div class="chat-content">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai-message">
+                            <div class="message-avatar">🤖</div>
+                            <div class="message-content">
+                                <p>Hello! I'm your AI assistant. I can help you with:</p>
+                                <ul>
+                                    <li>Creating new cards</li>
+                                    <li>Organizing your layout</li>
+                                    <li>Suggesting content</li>
+                                    <li>Answering questions</li>
+                                </ul>
+                                <p>What would you like to do?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <textarea 
+                                class="chat-input" 
+                                id="chatInput" 
+                                placeholder="Ask me anything or request a new card..."
+                                rows="1"
+                            ></textarea>
+                            <button class="send-button" id="sendButton" title="Send message">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
