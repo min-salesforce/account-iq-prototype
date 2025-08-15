@@ -3,8 +3,11 @@
 Edit this file to control the content shown in the prototype. All sections map to visible UI elements. After edits, we’ll wire the app to load from here.
 
 ## Header
-- **title**: Pinterest-Style Masonry Layout
-- **subtitle**: Drag cards between columns, resize them, and span across multiple columns
+- **cloud_logo**: true
+- **app_section_title**: Sales
+- **search_placeholder**: Search
+- **tabs**: [Home, Opportunities, Accounts, Leads, Contacts, * Meeting Brief for Acme Corp]
+- **active_tab**: * Meeting Brief for Acme Corp
 
 ## Cards
 
@@ -33,9 +36,11 @@ Edit this file to control the content shown in the prototype. All sections map t
 - **card-4.image**: 
 - **card-4.span**: 1
 
-- **card-5.title**: Medium Card
-- **card-5.content**: Another card with different dimensions.
-- **card-5.image**: https://picsum.photos/300/150?random=2
+- **card-5.title**: Scratch Pad
+- **card-5.type**: rte
+- **card-5.content**: |
+    Start typing...
+- **card-5.image**: 
 - **card-5.span**: 1
 
 ### Column 2
@@ -61,8 +66,8 @@ Edit this file to control the content shown in the prototype. All sections map t
 - **card-8.image**: 
 - **card-8.span**: 1
 
-## Chat Panel (AI Assistant)
-- **header**: AI Assistant
+## Chat Panel (Agentforce)
+- **header**: Agentforce
 - **welcome**: |
     Hello! I'm your AI assistant. I can help you with:
     

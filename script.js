@@ -14,7 +14,19 @@ class MasonryLayout {
         this.setupCardSpanning();
         this.setupChat();
         this.setupLayoutVars();
+        this.setupRTE();
         console.log('Masonry Layout initialized');
+    }
+
+    // Simple RTE handlers
+    setupRTE() {
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.rte-btn');
+            if (!btn) return;
+            const cmd = btn.dataset.cmd;
+            if (!cmd) return;
+            document.execCommand(cmd, false, null);
+        });
     }
 
     // Drag and Drop functionality
