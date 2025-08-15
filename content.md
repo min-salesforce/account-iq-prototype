@@ -9,6 +9,13 @@ Edit this file to control the content shown in the prototype. All sections map t
 - **tabs**: [Home, Opportunities, Accounts, Leads, Contacts, * Meeting Brief for Acme Corp]
 - **active_tab**: * Meeting Brief for Acme Corp
 
+## Page
+- **page_title**: Account Brief for Acme Corp
+
+## Left Navigation
+- **items**: [Home, Contacts, Accounts, Sales, Marketing, Commerce, More]
+- **active_item**: Accounts
+
 ## Cards
 
 ### Column 0
@@ -29,6 +36,7 @@ Edit this file to control the content shown in the prototype. All sections map t
 
 ### Column 1
 - **card-4.title**: Tall Card
+- **card-4.title**: Account Brief
 - **card-4.content**: |
     This is a taller card with more content to demonstrate the masonry layout effect. The content can vary in height and the layout will adjust accordingly.
     
