@@ -94,6 +94,7 @@ body {
     padding: 0 4px;
 }
 .tabs-title { align-self: center; color: #0f172a; font-weight: 700; margin-right: 8px; }
+.tab.dragging { opacity: 0.6; }
 .tab {
     appearance: none;
     background: transparent;
@@ -122,11 +123,23 @@ body {
 .main-content {
     flex: 1;
     display: flex;
+    flex-direction: column; /* stack title above grid */
     max-width: 1280px;
     margin: 0 auto;
     padding: 24px;
     gap: 24px; /* larger gutter for modern rhythm */
     margin-right: var(--right-panel-width, 0px); /* reserve space for right panel */
+}
+
+.page-title {
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: var(--font-family-base, "SF Pro"), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: var(--font-scale-4, 24px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; /* 133.333% */
+    color: #0f172a;
+    margin: 4px 0 8px 0;
 }
 
 /* Left panel */
@@ -136,13 +149,13 @@ body {
     top: 0;
     height: 100vh;
     width: 72px;
-    background: #0b1726; /* deep brand navy */
+    background: #002775; /* updated brand color */
     color: #cbd5e1;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 12px 0;
-    gap: 12px;
+    gap: 16px; /* more spacing between sections */
     z-index: 200;
 }
 
@@ -172,7 +185,7 @@ body {
 .lp-nav {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 12px; /* more gap between items */
     padding: 4px;
 }
 
@@ -190,6 +203,9 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.lp-item--home { flex-direction: column; gap: 4px; }
+.lp-item--home .lp-label { font-size: 10px; color: #e2e8f0; }
+
 .lp-item:hover {
     background: rgba(255,255,255,0.06);
 }
@@ -199,14 +215,7 @@ body {
     color: #e2e8f0;
 }
 
-.lp-footer {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-    padding: 8px 0;
-}
+.lp-footer { display: none; }
 
 .lp-avatar {
     width: 36px;
@@ -295,9 +304,10 @@ body {
 .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center; /* vertically center title and controls */
     margin-bottom: 12px;
     gap: 12px;
+    padding: 8px 0; /* top and bottom padding instead of fixed height */
 }
 
 .card-header h3 {
@@ -306,7 +316,12 @@ body {
     color: #1f2937;
     margin: 0;
     flex: 1;
+    display: inline-flex;            /* align text and icon */
+    align-items: center;
+    gap: 6px;
 }
+
+.card-header h3 svg { display: block; flex-shrink: 0; }
 
 .card-content p, .card-content li, .card-content blockquote {
     font-size: 0.95rem;
@@ -338,6 +353,10 @@ body {
 .card:hover .span-controls {
     opacity: 1;
 }
+
+.card-actions { display: inline-flex; align-items: center; gap: 6px; }
+.card-action-btn { border: none; background: transparent; padding: 4px; border-radius: 6px; cursor: pointer; }
+.card-action-btn:hover { background: #f1f5f9; }
 
 .span-btn {
     width: 24px;

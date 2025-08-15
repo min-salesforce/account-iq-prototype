@@ -15,7 +15,108 @@ class MasonryLayout {
         this.setupChat();
         this.setupLayoutVars();
         this.setupRTE();
+        this.setupTabDragAndDrop();
+        this.setupCardHeaderActions();
         console.log('Masonry Layout initialized');
+    }
+
+    setupCardHeaderActions() {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => this.ensureCardHeaderActions(card));
+    }
+
+    ensureCardHeaderActions(cardEl) {
+        const header = cardEl.querySelector('.card-header');
+        if (!header) return;
+
+        let controls = header.querySelector('.card-controls');
+        const resize = header.querySelector('.resize-handle');
+
+        // Create controls wrapper if missing
+        if (!controls) {
+            controls = document.createElement('div');
+            controls.className = 'card-controls';
+            if (resize) {
+                header.replaceChild(controls, resize);
+                controls.appendChild(resize);
+            } else {
+                header.appendChild(controls);
+            }
+        }
+
+        // Insert actions if missing
+        if (!controls.querySelector('.card-actions')) {
+            const actions = document.createElement('div');
+            actions.className = 'card-actions';
+            actions.innerHTML = `
+                <button class="card-action-btn" aria-label="Edit" title="Edit">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.19138 7.70797L4.24427 9.76153C4.33654 9.85383 4.47493 9.85383 4.5672 9.76153L9.68789 4.6161C9.78016 4.5238 9.78016 4.38536 9.68789 4.29307L7.65807 2.26258C7.5658 2.17029 7.42741 2.17029 7.33514 2.26258L2.19138 7.40802C2.09912 7.50031 2.09912 7.63875 2.19138 7.70797ZM8.32693 1.31662C8.23466 1.40891 8.23466 1.54735 8.32693 1.63965L10.3568 3.67013C10.449 3.76243 10.5874 3.76243 10.6797 3.67013L11.2563 3.09329C11.6254 2.74719 11.6254 2.19342 11.2563 1.82424L10.1722 0.739775C9.80316 0.370596 9.22651 0.370596 8.85745 0.739775L8.32693 1.31662ZM0.484503 11.1229C0.438371 11.3537 0.645966 11.5613 0.876628 11.5152L3.39084 10.9153C3.48311 10.8922 3.55231 10.8461 3.59844 10.7999L3.64457 10.7538C3.6907 10.7076 3.71377 10.5461 3.6215 10.4538L1.54555 8.37718C1.45328 8.28488 1.29182 8.30795 1.24569 8.3541L1.19955 8.40025C1.13036 8.46947 1.10729 8.53869 1.08422 8.60791L0.484503 11.1229Z" fill="#747474"/></svg>
+                </button>
+                <button class="card-action-btn" aria-label="Regenerate" title="Regenerate">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.26929 3.94626H6.78468C6.64621 3.94626 6.53083 4.06164 6.53083 4.20011V5.4001C6.53083 5.56164 6.43852 5.63087 6.32314 5.51549C6.27698 5.44626 6.23083 5.40011 6.1616 5.35395C5.33083 4.50011 4.17698 4.13087 3.00006 4.38472C2.58468 4.47703 2.19237 4.63857 1.84621 4.89241C0.853906 5.58472 0.276983 6.69241 0.253906 7.89241C0.253906 8.81549 0.576983 9.73857 1.20006 10.4309C1.84621 11.1463 2.74621 11.5386 3.69237 11.5386C4.63852 11.5386 5.33083 11.2386 5.95391 10.6847C6.06929 10.5693 6.06929 10.4078 5.95391 10.3155L5.60775 9.94626C5.51544 9.85395 5.37698 9.83087 5.28468 9.94626C4.68468 10.454 3.87698 10.6616 3.06929 10.454C2.8616 10.4078 2.63083 10.2924 2.44621 10.177C1.50006 9.57703 1.0616 8.44626 1.33852 7.31549C1.38468 7.08472 1.47698 6.87703 1.59237 6.66934C2.05391 5.83857 2.8616 5.35395 3.71544 5.35395C4.56929 5.35395 5.00775 5.63087 5.46929 6.11549C5.5616 6.18472 5.60775 6.27703 5.67698 6.34626C5.72314 6.48472 5.60775 6.55395 5.46929 6.55395H4.31544C4.17698 6.55395 4.0616 6.66934 4.0616 6.8078V7.33857C4.0616 7.47703 4.15391 7.56934 4.29237 7.56934H7.31544C7.43083 7.56934 7.52314 7.45395 7.52314 7.33857V4.20011C7.52314 4.06164 7.38468 3.94626 7.26929 3.94626Z" fill="#747474"/><path d="M11.6539 2.35395L10.8462 1.93857C10.6154 1.82318 10.4078 1.61549 10.2924 1.36164L9.90006 0.530874C9.85391 0.41549 9.66929 0.41549 9.62314 0.530874L9.23083 1.36164C9.11544 1.61549 8.90775 1.8001 8.67698 1.93857L7.86929 2.35395C7.75391 2.42318 7.75391 2.58472 7.86929 2.63087L8.67698 3.04626C8.90775 3.16164 9.11544 3.36934 9.23083 3.62318L9.62314 4.45395C9.66929 4.56934 9.85391 4.56934 9.90006 4.45395L10.2924 3.62318C10.4078 3.36934 10.6154 3.18472 10.8462 3.04626L11.6539 2.63087C11.7693 2.56164 11.7693 2.4001 11.6539 2.35395Z" fill="#747474"/>
+                </button>`;
+
+            // Insert actions before resize-handle if present, else append to controls
+            if (resize && resize.parentElement === controls) {
+                controls.insertBefore(actions, resize);
+            } else {
+                controls.appendChild(actions);
+            }
+        }
+    }
+
+    // Tabs drag-and-drop reordering (header)
+    setupTabDragAndDrop() {
+        const tabbar = document.querySelector('.tabbar');
+        if (!tabbar) return;
+
+        const tabs = [...tabbar.querySelectorAll('.tab')];
+        tabs.forEach(tab => {
+            tab.setAttribute('draggable', 'true');
+            tab.addEventListener('dragstart', (e) => {
+                this.draggedTab = tab;
+                tab.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+                // minimal drag image
+                const ghost = document.createElement('div');
+                ghost.style.position = 'absolute';
+                ghost.style.top = '-1000px';
+                ghost.textContent = tab.textContent;
+                ghost.style.padding = '4px 8px';
+                ghost.style.background = '#fff';
+                document.body.appendChild(ghost);
+                e.dataTransfer.setDragImage(ghost, 0, 0);
+                setTimeout(() => document.body.removeChild(ghost), 0);
+            });
+            tab.addEventListener('dragend', () => {
+                tab.classList.remove('dragging');
+                this.draggedTab = null;
+            });
+        });
+
+        tabbar.addEventListener('dragover', (e) => {
+            if (!this.draggedTab) return;
+            e.preventDefault();
+            const after = this.getTabAfterElement(tabbar, e.clientX);
+            if (after == null) {
+                tabbar.appendChild(this.draggedTab);
+            } else {
+                tabbar.insertBefore(this.draggedTab, after);
+            }
+        });
+    }
+
+    getTabAfterElement(container, x) {
+        const candidates = [...container.querySelectorAll('.tab:not(.dragging)')];
+        return candidates.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = x - box.left - box.width / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY, element: null }).element;
     }
 
     // Simple RTE handlers
@@ -681,6 +782,9 @@ class MasonryLayout {
         // Add resize listener to the new handle
         const resizeHandle = card.querySelector('.resize-handle');
         resizeHandle.addEventListener('mousedown', this.handleResizeStart.bind(this));
+
+        // Ensure header actions present on new cards
+        this.ensureCardHeaderActions(card);
         
         // Animate in
         card.style.opacity = '0';
