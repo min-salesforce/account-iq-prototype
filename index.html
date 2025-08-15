@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinterest-Style Masonry Layout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pinterest-Style Masonry Layout</h1>
+            <p>Drag cards between columns and resize them with the corner handles</p>
+        </header>
+        
+        <div class="grid-container" id="gridContainer">
+            <div class="column" id="column-0" data-column="0">
+                <div class="column-header">Column 1</div>
+                <div class="card" draggable="true" data-card-id="card-1">
+                    <div class="card-header">
+                        <h3>Sample Card 1</h3>
+                        <div class="resize-handle" data-resize="card-1"></div>
+                    </div>
+                    <div class="card-content">
+                        <p>This is a sample card with some content. You can drag it to other columns or resize it using the handle in the corner.</p>
+                    </div>
+                </div>
+                
+                <div class="card" draggable="true" data-card-id="card-2">
+                    <div class="card-header">
+                        <h3>Image Card</h3>
+                        <div class="resize-handle" data-resize="card-2"></div>
+                    </div>
+                    <div class="card-content">
+                        <img src="https://picsum.photos/300/200?random=1" alt="Sample image" />
+                        <p>A card with an image and some descriptive text.</p>
+                    </div>
+                </div>
+                
+                <div class="card" draggable="true" data-card-id="card-3">
+                    <div class="card-header">
+                        <h3>Short Card</h3>
+                        <div class="resize-handle" data-resize="card-3"></div>
+                    </div>
+                    <div class="card-content">
+                        <p>Brief content.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column" id="column-1" data-column="1">
+                <div class="column-header">Column 2</div>
+                <div class="card" draggable="true" data-card-id="card-4">
+                    <div class="card-header">
+                        <h3>Tall Card</h3>
+                        <div class="resize-handle" data-resize="card-4"></div>
+                    </div>
+                    <div class="card-content">
+                        <p>This is a taller card with more content to demonstrate the masonry layout effect. The content can vary in height and the layout will adjust accordingly.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+                
+                <div class="card" draggable="true" data-card-id="card-5">
+                    <div class="card-header">
+                        <h3>Medium Card</h3>
+                        <div class="resize-handle" data-resize="card-5"></div>
+                    </div>
+                    <div class="card-content">
+                        <img src="https://picsum.photos/300/150?random=2" alt="Another image" />
+                        <p>Another card with different dimensions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column" id="column-2" data-column="2">
+                <div class="column-header">Column 3</div>
+                <div class="card" draggable="true" data-card-id="card-6">
+                    <div class="card-header">
+                        <h3>List Card</h3>
+                        <div class="resize-handle" data-resize="card-6"></div>
+                    </div>
+                    <div class="card-content">
+                        <ul>
+                            <li>Feature 1</li>
+                            <li>Feature 2</li>
+                            <li>Feature 3</li>
+                            <li>Feature 4</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card" draggable="true" data-card-id="card-7">
+                    <div class="card-header">
+                        <h3>Quote Card</h3>
+                        <div class="resize-handle" data-resize="card-7"></div>
+                    </div>
+                    <div class="card-content">
+                        <blockquote>
+                            "The best way to predict the future is to create it."
+                        </blockquote>
+                        <p>- Peter Drucker</p>
+                    </div>
+                </div>
+                
+                <div class="card" draggable="true" data-card-id="card-8">
+                    <div class="card-header">
+                        <h3>Another Card</h3>
+                        <div class="resize-handle" data-resize="card-8"></div>
+                    </div>
+                    <div class="card-content">
+                        <p>More sample content to fill out the layout.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
