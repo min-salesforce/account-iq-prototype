@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pinterest-Style Masonry Layout</title>
     <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  </head>
+  <body>
     <div class="left-panel" id="leftPanel" aria-label="Primary Navigation">
         <div class="lp-brand" title="Account IQ">
             <span class="lp-logo">AI</span>
@@ -57,8 +57,55 @@
     <div class="app-container">
         <header class="main-header" id="mainHeader">
             <div class="header-content">
-                <h1>Pinterest-Style Masonry Layout</h1>
-                <p>Drag cards between columns, resize them, and span across multiple columns</p>
+                <div class="header-top">
+                    <div class="header-left">
+                        <button class="logo-btn" aria-label="Home">
+                            <svg class="logo-cloud" viewBox="0 0 61 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M25.524 4.65374C27.5144 2.6759 30.2073 1.39612 33.2514 1.39612C37.2322 1.39612 40.7447 3.60665 42.618 6.86427C44.2572 6.1662 46.0134 5.70083 47.8868 5.70083C55.1459 5.70083 61 11.518 61 18.7313C61 25.9446 55.1459 31.7618 47.8868 31.7618C46.9501 31.7618 46.1305 31.6454 45.3109 31.5291C43.6718 34.4377 40.5106 36.4155 36.881 36.4155C35.3589 36.4155 33.9539 36.0665 32.666 35.4848C31.0269 39.3241 27.1631 42 22.5969 42C17.9136 42 13.8157 39.0914 12.2937 34.903C11.5912 35.0194 10.8887 35.1357 10.1862 35.1357C4.56622 35.1357 0 30.5983 0 25.0139C0 21.2909 1.9904 18.0332 5.03455 16.2881C4.44914 14.892 4.09789 13.2632 4.09789 11.6343C4.09789 5.23546 9.3666 0 15.9232 0C20.0211 0.116343 23.4165 1.8615 25.524 4.65374Z" fill="#00A1E0"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="header-center">
+                        <label class="search-wrap" aria-label="Search">
+                            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="7"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input class="search-input" type="search" placeholder="Search" />
+                        </label>
+                    </div>
+                    <div class="header-right">
+                        <button class="icon-btn" aria-label="Notifications">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 8a6 6 0 1 1 12 0c0 7 3 7 3 9H3c0-2 3-2 3-9"/>
+                                <path d="M10 21h4"/>
+                            </svg>
+                        </button>
+                        <button class="icon-btn" aria-label="Help">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 18h.01"/>
+                                <path d="M9.09 9a3 3 0 1 1 5.83 1c0 2-3 2-3 4"/>
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </button>
+                        <button class="icon-btn" aria-label="Settings">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 3.6 15a1.65 1.65 0 0 0-1.51-1H2a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 3.6 8a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8 3.6a1.65 1.65 0 0 0 1-1.51V2a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 15 3.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 20.4 8c.36.33.59.8.59 1.31V10a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                            </svg>
+                        </button>
+                        <button class="avatar-btn" aria-label="Profile">M</button>
+                    </div>
+                </div>
+                <nav class="tabbar" role="tablist" aria-label="Primary tabs">
+                    <span class="tabs-title">Sales</span>
+                    <button class="tab" role="tab" aria-selected="false">Home</button>
+                    <button class="tab" role="tab" aria-selected="false">Opportunities</button>
+                    <button class="tab" role="tab" aria-selected="false">Accounts</button>
+                    <button class="tab" role="tab" aria-selected="false">Leads</button>
+                    <button class="tab" role="tab" aria-selected="false">Contacts</button>
+                    <button class="tab active" role="tab" aria-selected="true">* Meeting Brief for Acme Corp</button>
+                </nav>
             </div>
         </header>
         
@@ -180,13 +227,13 @@
             
             <div class="chat-panel" id="chatPanel">
                 <div class="chat-header">
-                    <h3>AI Assistant</h3>
+                    <h3>Agentforce</h3>
                     <button class="chat-toggle" id="chatToggle" title="Toggle chat">💬</button>
                 </div>
                 <div class="chat-content">
                     <div class="chat-messages" id="chatMessages">
                         <div class="message ai-message">
-                            <div class="message-avatar">🤖</div>
+                            <div class="message-avatar"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z" fill="#D6E6FF"/><path d="M18.1116 16.6235H18.1193C17.8039 16.6504 17.5231 16.7042 17.2808 16.7811C17.2808 16.7811 16.927 16.8927 16.3847 16.9696C16.2577 16.9888 16.0962 16.9888 16.0077 16.9888H15.9424C15.8539 16.9888 15.6885 16.9811 15.5654 16.9619C15.0231 16.8735 14.6731 16.7504 14.6731 16.7504C14.4308 16.6735 14.15 16.6158 13.8347 16.5811C12.1077 16.4042 11.3616 17.0619 11.3193 17.185C11.277 17.3081 11.4654 18.9081 11.6039 19.1619C11.7385 19.4119 11.9462 19.5581 12.1347 19.6388C12.327 19.7196 13.9077 19.8773 14.4347 19.8042C14.9616 19.7311 15.0424 19.5542 15.1847 19.285C15.2847 19.0927 15.5424 18.2235 15.6847 17.7119C15.7193 17.6119 15.7231 17.4119 15.9654 17.3965C16.2077 17.4158 16.2116 17.6196 16.2424 17.7196C16.3808 18.2311 16.6231 19.1081 16.7193 19.3004C16.8539 19.5735 16.9347 19.7504 17.4616 19.835C17.9847 19.9158 19.5693 19.7888 19.7616 19.7119C19.9539 19.635 20.1616 19.4927 20.3 19.2427C20.4385 18.9927 20.6539 17.3965 20.6154 17.2735C20.577 17.1465 19.8424 16.4773 18.1116 16.6235Z" fill="#0250D9"/><path d="M23.5077 11.5965H23.5116C23.0308 10.985 22.4616 10.4427 21.8308 9.9773C22.4847 9.86191 22.9808 9.29268 22.9808 8.60807C22.9808 7.83884 22.3577 7.21191 21.5847 7.21191C20.8116 7.21191 20.1885 7.83499 20.1885 8.60807C20.1885 8.76191 20.2193 8.90807 20.2654 9.04653C19.2731 8.5773 18.1885 8.26961 17.0539 8.15038C15.1539 7.95038 13.3193 8.28884 11.7385 9.03499C11.7808 8.90038 11.8116 8.75807 11.8116 8.60807C11.8116 7.83884 11.1885 7.21191 10.4154 7.21191C9.64235 7.21191 9.01927 7.83499 9.01927 8.60807C9.01927 9.29268 9.51158 9.85807 10.1577 9.9773C8.36543 11.3004 7.11543 13.2273 6.83081 15.4619C6.56543 17.5273 7.15389 19.5965 8.49235 21.2888C10.0077 23.2042 12.3616 24.4619 14.9462 24.735C15.3077 24.7735 15.6654 24.7927 16.0193 24.7927C20.6308 24.7927 24.6231 21.6619 25.1693 17.4235C25.4347 15.3581 24.8462 13.2888 23.5077 11.5965ZM16.0077 22.4081H16.0039C12.5347 22.4042 9.71158 20.0888 9.71158 17.2427C9.71158 16.385 9.97312 15.5619 10.4462 14.8311C10.4885 15.0927 10.5654 15.3196 10.65 15.4888C10.7654 15.7196 10.9962 15.8542 11.2385 15.8542C11.3347 15.8542 11.4347 15.835 11.527 15.7888C11.8539 15.6311 11.9885 15.2388 11.8385 14.9119C11.7577 14.7388 11.55 14.1658 12.0539 13.7273C12.5424 14.1696 13.2424 14.6888 14.0308 14.9427C15.5 15.4081 16.6116 15.135 16.6577 15.1235C16.8808 15.0658 17.0539 14.9004 17.1231 14.6811C17.1924 14.4619 17.1424 14.2235 16.9924 14.0542C16.25 13.2004 15.8962 12.5773 15.7424 12.2004C18.75 12.6081 19.327 15.0042 19.35 15.1119C19.4154 15.4196 19.6885 15.6311 19.9924 15.6311C20.0385 15.6311 20.0808 15.6273 20.127 15.6158C20.4847 15.5427 20.7116 15.1927 20.6385 14.835C20.5462 14.3888 20.3039 13.785 19.8731 13.1811C21.3462 14.1273 22.3 15.5965 22.3 17.2465C22.3 20.0927 19.477 22.4081 16.0077 22.4081Z" fill="#0250D9"/></svg></div>
                             <div class="message-content">
                                 <p>Hello! I'm your AI assistant. I can help you with:</p>
                                 <ul>
@@ -221,5 +268,5 @@
     </div>
     
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

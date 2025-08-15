@@ -21,9 +21,9 @@ body {
 }
 
 .main-header {
-    background: white;
+    background: #ffffff; /* Figma surface */
     border-bottom: 1px solid #e5e7eb;
-    padding: 20px 0;
+    padding: 8px 0 0; /* spacing token 2 */
     position: sticky;
     top: 0;
     z-index: 100;
@@ -36,16 +36,87 @@ body {
     text-align: left;
 }
 
-.header-content h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 10px;
+.header-top { display: flex; align-items: center; justify-content: space-between; }
+.app-title { 
+    font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* Figma base */
+    font-size: 16px; /* closer to body/title scale */
+    font-weight: 600; /* strong title */
+    line-height: 22px; /* ~Figma 18 with leading */
+    color: #0f172a;
+    margin: 8px 0 4px; /* spacing-2 / spacing-1 */
 }
 
-.header-content p {
-    font-size: 1.1rem;
-    color: #6b7280;
+.header-left .logo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: transparent;
+    color: #0f172a;
+    cursor: pointer;
+}
+.logo-cloud { width: 30px; height: 20px; display: inline-block; }
+
+.header-center { flex: 1; display: flex; justify-content: center; }
+.search-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 9999px;
+    padding: 6px 12px;
+    min-width: 360px;
+}
+.search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    color: #0f172a;
+    min-width: 260px;
+}
+.search-input::placeholder { color: #94a3b8; }
+
+.header-right { display: inline-flex; align-items: center; gap: 8px; }
+.icon-btn {
+    width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 8px; border: 1px solid #e2e8f0; background: #ffffff; color: #334155; cursor: pointer;
+}
+.icon-btn:hover { background: #f8fafc; }
+.avatar-btn { width: 32px; height: 32px; border-radius: 9999px; border: 1px solid #e2e8f0; background: #f1f5f9; color: #0f172a; cursor: pointer; }
+
+/* Tabs */
+.tabbar {
+    display: flex;
+    gap: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0 4px;
+}
+.tabs-title { align-self: center; color: #0f172a; font-weight: 700; margin-right: 8px; }
+.tab {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: #475569;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    cursor: pointer;
+}
+.tab:hover { background: #f8fafc; color: #0f172a; }
+.tab.active {
+    color: #0f172a;
+    background: #ffffff;
+}
+.tab.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 3px;
+    background: linear-gradient(90deg, #2563eb, #22c55e);
+    border-radius: 3px 3px 0 0;
 }
 
 .main-content {
@@ -459,17 +530,7 @@ body {
     align-items: flex-start;
 }
 
-.message-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #f3f4f6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-}
+.message-avatar { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: transparent; border-radius: 50%; }
 
 .ai-message .message-avatar {
     background: #eff6ff;
