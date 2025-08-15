@@ -11,6 +11,9 @@ class MasonryLayout {
         this.setupDragAndDrop();
         this.setupResize();
         this.setupResponsive();
+        this.setupCardSpanning();
+        this.setupChat();
+        this.setupLayoutVars();
         console.log('Masonry Layout initialized');
     }
 
@@ -139,6 +142,11 @@ class MasonryLayout {
             this.draggedCard.classList.remove('card-moving');
         }, 300);
         
+        // Re-apply spacers for current span in the new column
+        const currentSpan = parseInt(this.draggedCard.dataset.span || '1');
+        const clampedSpan = this.clampSpanToAvailableColumns(this.draggedCard, currentSpan);
+        this.applyCardSpan(this.draggedCard, clampedSpan);
+        
         console.log('Card dropped in column:', targetColumn.dataset.column);
     }
 
@@ -211,11 +219,20 @@ class MasonryLayout {
         const deltaX = e.clientX - startX;
         const deltaY = e.clientY - startY;
         
-        const newWidth = Math.max(200, startWidth + deltaX);
+        const desiredWidth = Math.max(200, startWidth + deltaX);
         const newHeight = Math.max(150, startHeight + deltaY);
-        
-        card.style.width = newWidth + 'px';
+
+        const { span } = this.computeSpanSnap(card, desiredWidth);
+        const clampedSpan = this.clampSpanToAvailableColumns(card, span);
+        const snappedWidth = this.computeWidthForSpan(card, clampedSpan);
+
+        // Anchor to left/top to avoid drift, and set exact snapped size
+        card.style.position = 'relative';
+        card.style.left = '0px';
+        card.style.top = '0px';
+        card.style.width = snappedWidth + 'px';
         card.style.height = newHeight + 'px';
+        this.applyCardSpan(card, clampedSpan);
     }
 
     handleResizeEnd(e) {
@@ -225,6 +242,13 @@ class MasonryLayout {
         
         card.style.userSelect = '';
         document.body.style.cursor = '';
+
+        // Finalize snap to exact span width
+        const currentSpan = parseInt(card.dataset.span || '1');
+        const clampedSpan = this.clampSpanToAvailableColumns(card, currentSpan);
+        const snappedWidth = this.computeWidthForSpan(card, clampedSpan);
+        card.style.width = snappedWidth + 'px';
+        this.applyCardSpan(card, clampedSpan);
         
         console.log('Resize ended for:', card.dataset.cardId);
         
@@ -251,6 +275,100 @@ class MasonryLayout {
         }
         
         console.log('Window resized, width:', width);
+    }
+
+    // ---- Spanning helpers ----
+    computeSpanSnap(card, desiredWidthPx) {
+        const { columnWidth, gap } = this.getGridMetrics();
+        const twoColThreshold = columnWidth + gap + columnWidth * 0.5;
+        const threeColThreshold = columnWidth * 2 + gap * 2 + columnWidth * 0.5;
+        let span = 1;
+        if (desiredWidthPx > threeColThreshold) span = 3;
+        else if (desiredWidthPx > twoColThreshold) span = 2;
+        return { span };
+    }
+
+    clampSpanToAvailableColumns(card, span) {
+        const currentColumnIndex = parseInt(card.parentElement.dataset.column);
+        const { gridColumns } = this.getGridMetrics();
+        const maxSpanRight = Math.max(1, gridColumns - currentColumnIndex);
+        return Math.max(1, Math.min(span, maxSpanRight));
+    }
+
+    computeWidthForSpan(card, span) {
+        const { columnWidth, gap } = this.getGridMetrics();
+        return columnWidth * span + gap * (span - 1);
+    }
+
+    getGridMetrics() {
+        const grid = document.querySelector('.grid-container');
+        const columns = [...document.querySelectorAll('.grid-container .column')];
+        const gridStyle = getComputedStyle(grid);
+        const gap = parseFloat(gridStyle.gap) || 0;
+        const gridColumns = columns.length;
+        // Prefer computed width from grid container
+        const gridWidth = grid.getBoundingClientRect().width;
+        const columnWidth = gridColumns > 0 ? (gridWidth - gap * (gridColumns - 1)) / gridColumns : (columns[0] ? columns[0].getBoundingClientRect().width : 0);
+        return { gap, gridColumns, columnWidth };
+    }
+
+    applyCardSpan(card, span) {
+        card.dataset.span = String(span);
+        card.classList.remove('card-span-1', 'card-span-2', 'card-span-3');
+        if (span > 1) card.classList.add(`card-span-${span}`);
+        this.updateSpacersForCard(card, span);
+    }
+
+    updateSpacersForCard(card, span) {
+        const cardId = card.dataset.cardId;
+        // Remove existing spacers for this card
+        document.querySelectorAll(`.spacer[data-spacer-for="${cardId}"]`).forEach(el => el.remove());
+        if (span <= 1) return;
+
+        const sourceColumnIndex = parseInt(card.parentElement.dataset.column);
+        const cardRect = card.getBoundingClientRect();
+        const cardTop = cardRect.top + window.scrollY;
+        const cardHeight = cardRect.height;
+
+        for (let offset = 1; offset < span; offset++) {
+            const targetIndex = sourceColumnIndex + offset;
+            const targetColumn = document.querySelector(`.column[data-column="${targetIndex}"]`);
+            if (!targetColumn) continue;
+
+            const spacer = document.createElement('div');
+            spacer.className = 'spacer';
+            spacer.setAttribute('data-spacer-for', cardId);
+            spacer.style.height = `${cardHeight}px`;
+
+            // Insert spacer before the first child whose top >= cardTop
+            let inserted = false;
+            const children = [...targetColumn.children].filter(el => !el.classList.contains('column-header'));
+            for (const child of children) {
+                const rect = child.getBoundingClientRect();
+                const childTop = rect.top + window.scrollY;
+                if (childTop >= cardTop) {
+                    targetColumn.insertBefore(spacer, child);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) targetColumn.appendChild(spacer);
+        }
+    }
+
+    // Layout variables for header / right panel
+    setupLayoutVars() {
+        const header = document.getElementById('mainHeader');
+        const root = document.documentElement;
+        const updateVars = () => {
+            const headerHeight = header ? header.offsetHeight : 72;
+            root.style.setProperty('--header-height', headerHeight + 'px');
+            // Right panel width is fixed in CSS; mirror to margin reservation
+            const rightPanelWidth = 380;
+            root.style.setProperty('--right-panel-width', rightPanelWidth + 'px');
+        };
+        updateVars();
+        window.addEventListener('resize', updateVars);
     }
 
     // Utility methods
@@ -348,6 +466,245 @@ class MasonryLayout {
         }
         
         card.focus();
+    }
+
+    // Card spanning functionality
+    setupCardSpanning() {
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('span-btn')) {
+                this.handleSpanChange(e);
+            }
+        });
+    }
+
+    handleSpanChange(e) {
+        const requestedSpan = parseInt(e.target.dataset.span);
+        const card = e.target.closest('.card');
+        const cardId = card.dataset.cardId;
+        
+        const clampedSpan = this.clampSpanToAvailableColumns(card, requestedSpan);
+        const snappedWidth = this.computeWidthForSpan(card, clampedSpan);
+        card.style.width = snappedWidth + 'px';
+        this.applyCardSpan(card, clampedSpan);
+        
+        // Update button states
+        const spanButtons = card.querySelectorAll('.span-btn');
+        spanButtons.forEach(btn => {
+            btn.classList.remove('active');
+            if (parseInt(btn.dataset.span) === clampedSpan) {
+                btn.classList.add('active');
+            }
+        });
+        
+        console.log(`Card ${cardId} span changed to ${clampedSpan} columns`);
+    }
+
+    // Chat functionality
+    setupChat() {
+        const chatInput = document.getElementById('chatInput');
+        const sendButton = document.getElementById('sendButton');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatToggle = document.getElementById('chatToggle');
+        const chatPanel = document.getElementById('chatPanel');
+        
+        if (!chatInput || !sendButton || !chatMessages) return;
+        
+        // Send message functionality
+        const sendMessage = () => {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            this.addUserMessage(message);
+            chatInput.value = '';
+            this.autoResizeTextarea(chatInput);
+            
+            // Simulate AI response
+            setTimeout(() => {
+                this.addAIResponse(message);
+            }, 1000 + Math.random() * 1000);
+        };
+        
+        sendButton.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        // Auto-resize textarea
+        chatInput.addEventListener('input', () => {
+            this.autoResizeTextarea(chatInput);
+        });
+        
+        // Chat toggle functionality
+        if (chatToggle) {
+            chatToggle.addEventListener('click', () => {
+                chatPanel.classList.toggle('collapsed');
+            });
+        }
+    }
+    
+    addUserMessage(message) {
+        const chatMessages = document.getElementById('chatMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message user-message';
+        messageDiv.innerHTML = `
+            <div class="message-avatar">👤</div>
+            <div class="message-content">
+                <p>${this.escapeHtml(message)}</p>
+            </div>
+        `;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    addAIResponse(userMessage) {
+        const chatMessages = document.getElementById('chatMessages');
+        const response = this.generateAIResponse(userMessage);
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message ai-message';
+        messageDiv.innerHTML = `
+            <div class="message-avatar">🤖</div>
+            <div class="message-content">
+                ${response}
+            </div>
+        `;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    generateAIResponse(userMessage) {
+        const lowerMessage = userMessage.toLowerCase();
+        
+        // Check for card creation requests
+        if (lowerMessage.includes('create') || lowerMessage.includes('add') || lowerMessage.includes('new card')) {
+            const content = this.extractCardContent(userMessage);
+            this.createNewCard(content);
+            return `<p>I've created a new card for you with the content: "${content}"</p>`;
+        }
+        
+        // Check for layout help
+        if (lowerMessage.includes('layout') || lowerMessage.includes('organize') || lowerMessage.includes('arrange')) {
+            return `<p>I can help you organize your layout! Try these tips:</p>
+                    <ul>
+                        <li>Drag cards between columns to reorganize</li>
+                        <li>Use the span buttons (1, 2, 3) to make cards wider</li>
+                        <li>Resize cards by dragging the corner handle</li>
+                        <li>Cards automatically adjust to fit the grid</li>
+                    </ul>`;
+        }
+        
+        // Check for spanning help
+        if (lowerMessage.includes('span') || lowerMessage.includes('wide') || lowerMessage.includes('column')) {
+            return `<p>To make cards span multiple columns:</p>
+                    <ul>
+                        <li>Hover over a card to see the span controls (1, 2, 3)</li>
+                        <li>Click "2" to span 2 columns</li>
+                        <li>Click "3" to span all 3 columns</li>
+                        <li>On mobile, all cards become single column</li>
+                    </ul>`;
+        }
+        
+        // Default responses
+        const responses = [
+            `<p>That's interesting! How can I help you with your card layout?</p>`,
+            `<p>I can help you create new cards, organize your layout, or answer questions about the interface. What would you like to do?</p>`,
+            `<p>Would you like me to create a new card with that content? Just let me know!</p>`,
+            `<p>I'm here to help with your Pinterest-style layout. Try asking me to create a card or help organize your content.</p>`
+        ];
+        
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+    
+    extractCardContent(message) {
+        // Simple content extraction - in a real app, this would be more sophisticated
+        const words = message.split(' ');
+        const contentStart = words.findIndex(word => 
+            ['about', 'with', 'containing', 'saying'].includes(word.toLowerCase())
+        );
+        
+        if (contentStart !== -1 && contentStart < words.length - 1) {
+            return words.slice(contentStart + 1).join(' ');
+        }
+        
+        return message.replace(/create|add|new|card/gi, '').trim() || 'New card content';
+    }
+    
+    createNewCard(content) {
+        const columns = document.querySelectorAll('.column');
+        const targetColumn = this.findShortestColumn(columns);
+        
+        const cardId = 'card-' + Date.now();
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.draggable = true;
+        card.dataset.cardId = cardId;
+        
+        card.innerHTML = `
+            <div class="card-header">
+                <h3>AI Generated Card</h3>
+                <div class="card-controls">
+                    <div class="span-controls">
+                        <button class="span-btn active" data-span="1" title="Single column">1</button>
+                        <button class="span-btn" data-span="2" title="Span 2 columns">2</button>
+                        <button class="span-btn" data-span="3" title="Span 3 columns">3</button>
+                    </div>
+                    <div class="resize-handle" data-resize="${cardId}"></div>
+                </div>
+            </div>
+            <div class="card-content">
+                <p>${this.escapeHtml(content)}</p>
+            </div>
+        `;
+        
+        targetColumn.appendChild(card);
+        
+        // Add event listeners to the new card
+        card.addEventListener('dragstart', this.handleDragStart.bind(this));
+        card.addEventListener('dragend', this.handleDragEnd.bind(this));
+        
+        // Add resize listener to the new handle
+        const resizeHandle = card.querySelector('.resize-handle');
+        resizeHandle.addEventListener('mousedown', this.handleResizeStart.bind(this));
+        
+        // Animate in
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            card.style.transition = 'all 0.3s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, 100);
+        
+        console.log('Created new card:', cardId);
+    }
+    
+    findShortestColumn(columns) {
+        let shortestColumn = columns[0];
+        let shortestHeight = shortestColumn.offsetHeight;
+        
+        columns.forEach(column => {
+            if (column.offsetHeight < shortestHeight) {
+                shortestHeight = column.offsetHeight;
+                shortestColumn = column;
+            }
+        });
+        
+        return shortestColumn;
+    }
+    
+    autoResizeTextarea(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+    }
+    
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 }
 
