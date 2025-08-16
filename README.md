@@ -10,6 +10,7 @@ A clean, responsive three-column masonry layout built with pure HTML, CSS, and J
 - **Resizable Cards**: Drag corner handles to resize cards
 - **Masonry Layout**: Variable card heights create a Pinterest-style layout
 - **Responsive Design**: Adapts to desktop (3 cols), tablet (2 cols), and mobile (1 col)
+- **Sticky Card Headers**: Headers stay visible; content scrolls inside the card
 
 ### 🎨 Visual Design
 - Clean, modern interface following the UI plan specifications
@@ -33,6 +34,7 @@ A clean, responsive three-column masonry layout built with pure HTML, CSS, and J
 - **Resize Cards**: Drag the corner handle (bottom-right) to resize cards
 - **Span Snapping**: Cards snap to 1, 2, or 3 columns as you resize
 - **Responsive**: Resize your browser window to see responsive behavior
+  - Default max-height applies to cards (CSS var `--card-default-max-height`), removed while resizing
 
 ### Demo Commands
 Open browser console and try:
@@ -50,6 +52,8 @@ pinterest-ui-prototype/
 ├── index.html          # Main HTML structure
 ├── styles.css          # All CSS styles and responsive design
 ├── script.js           # JavaScript functionality
+├── content.md          # Content plan, parsed at runtime
+├── sync-content.js     # Bake content.md into index.html for static hosting
 └── README.md          # This documentation
 ```
 

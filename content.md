@@ -17,10 +17,10 @@ Edit this file to control the content shown in the prototype. All sections map t
 - **card-1.image**: 
 - **card-1.span**: 1
 
-- **card-2.title**: Wide Image Card (Spans 2 Columns)
-- **card-2.content**: This card spans across 2 columns, demonstrating the multi-column spanning feature.
-- **card-2.image**: https://picsum.photos/600/200?random=1
-- **card-2.span**: 2
+- **card-2.title**: Key Contacts
+- **card-2.content**: 
+- **card-2.image**: 
+- **card-2.span**: 1
 
 - **card-3.title**: Short Card
 - **card-3.content**: Brief content.
@@ -28,11 +28,31 @@ Edit this file to control the content shown in the prototype. All sections map t
 - **card-3.span**: 1
 
 ### Column 1
-- **card-4.title**: Tall Card
+- **card-4.title**: Account Brief
 - **card-4.content**: |
-    This is a taller card with more content to demonstrate the masonry layout effect. The content can vary in height and the layout will adjust accordingly.
-    
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+**Executive Summary**
+TechCorp Solutions is a Technology company with significant growth potential in the enterprise software market. They're currently evaluating cloud solutions and have shown interest in our platform.
+
+**Service Cases**
+There are several active service cases, including a request for a secure password policy and a billing statement reprint. Other cases involve inquiries about billing discrepancies and service hours, with one case closed regarding turbine performance.
+
+**Engagement with Marketing Campaigns**
+Acme Corp has engaged with the Annual Customer Conference campaign, with a positive response recorded. This indicates a willingness to participate in ongoing marketing efforts.
+
+**Account Plan Vision & Objectives**
+The vision for Acme is to be a trusted partner, fostering growth and collaboration. Key objectives include achieving $10 million in revenue, improving customer satisfaction (CSAT), and increasing sales in the EMEA region.
+
+**Open Opportunities**
+None
+
+**Competitive Landscape**
+Key competitors include Breitling and Rolex. Omega's strengths lie in its brand reputation and innovative technology, while weaknesses include high manufacturing costs and challenges in market differentiation.
+
+**Industry Trends**
+The luxury watch market is experiencing growth driven by trends such as an emphasis on craftsmanship, a booming pre-owned market, and a shift towards digital transformation. Sustainability practices are increasingly important among younger consumers.
+
+**Strategic Priorities**
+Acme’s strategic priorities focus on growth through partnerships, digital marketing initiatives, and data-driven decision-making. The company aims to solidify its market position while addressing competitive challenges.
 - **card-4.image**: 
 - **card-4.span**: 1
 

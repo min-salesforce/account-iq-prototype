@@ -134,7 +134,7 @@
             <div class="grid-container" id="gridContainer">
             <div class="column" id="column-0" data-column="0">
                 <div class="column-header">Column 1</div>
-                <div class="card" draggable="true" data-card-id="card-1">
+                <div class="card" draggable="true" data-card-id="card-1" data-span="1">
                     <div class="card-header">
                         <h3>Sample Card 1</h3>
                         <div class="card-controls">
@@ -154,56 +154,63 @@
                             <div class="resize-handle" data-resize="card-1"></div>
                         </div>
                     </div>
-                    <div class="card-content">
-                        <p>This is a sample card with some content. You can drag it to other columns or resize it using the handle in the corner.</p>
-                    </div>
+                    <div class="card-content"><p>This is a sample card with some content. You can drag it to other columns or resize it using the handle in the corner.</p></div>
                 </div>
                 
-                <div class="card card-span-2" draggable="true" data-card-id="card-2" data-span="2">
+                <div class="card" draggable="true" data-card-id="card-2" data-span="1">
                     <div class="card-header">
-                        <h3>Wide Image Card (Spans 2 Columns)</h3>
+                        <h3><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.2308 10.3498C19.2616 9.68056 18.7847 9.4921 18.5924 9.4921H11.6539C11.0501 9.4921 10.9539 10.1267 10.9539 10.1921V17.6383H19.2308V10.3498ZM14.4539 15.6959C14.4539 15.8652 14.3885 16.0267 14.2693 16.1459C14.1501 16.2652 13.9885 16.3306 13.8193 16.3306H13.1847C13.0154 16.3306 12.8539 16.2652 12.7347 16.1459C12.6154 16.0267 12.5501 15.8652 12.5501 15.6959V15.0575C12.5501 14.7075 12.8347 14.419 13.1885 14.419H13.8231C13.9924 14.419 14.1539 14.4844 14.2731 14.6036C14.3924 14.7229 14.4577 14.8844 14.4577 15.0536V15.6921H14.4539V15.6959ZM14.4539 12.4498C14.4539 12.619 14.3885 12.7806 14.2693 12.8998C14.1501 13.019 13.9885 13.0844 13.8193 13.0844H13.1847C13.0154 13.0844 12.8539 13.019 12.7347 12.8998C12.6154 12.7806 12.5501 12.619 12.5501 12.4498V11.8113C12.5501 11.4613 12.8347 11.1729 13.1885 11.1729H13.8231C13.9924 11.1729 14.1539 11.2383 14.2731 11.3575C14.3924 11.4767 14.4577 11.6383 14.4577 11.8075V12.4459H14.4539V12.4498ZM17.6385 15.6959C17.6385 15.8652 17.5731 16.0267 17.4539 16.1459C17.3347 16.2652 17.1731 16.3306 17.0039 16.3306H16.3693C16.2001 16.3306 16.0385 16.2652 15.9193 16.1459C15.8001 16.0267 15.7347 15.8652 15.7347 15.6959V15.0575C15.7347 14.7075 16.0193 14.419 16.3731 14.419H17.0077C17.177 14.419 17.3385 14.4844 17.4578 14.6036C17.577 14.7229 17.6424 14.8844 17.6424 15.0536V15.6921H17.6385V15.6959ZM17.6385 12.4498C17.6385 12.619 17.5731 12.7806 17.4539 12.8998C17.3347 13.019 17.1731 13.0844 17.0039 13.0844H16.3693C16.2001 13.0844 16.0385 13.019 15.9193 12.8998C15.8001 12.7806 15.7347 12.619 15.7347 12.4498V11.8113C15.7347 11.4613 16.0193 11.1729 16.3731 11.1729H17.0077C17.177 11.1729 17.3385 11.2383 17.4578 11.3575C17.577 11.4767 17.6424 11.6383 17.6424 11.8075V12.4459H17.6385V12.4498ZM12.8654 6.91133V3.21902C12.8962 2.54979 12.4193 2.36133 12.227 2.36133H1.46929C0.865441 2.36133 0.769287 2.99979 0.769287 3.06133V17.6383H9.04621V8.31133C9.04621 8.31133 9.04621 7.54594 9.74621 7.54594H12.2616C12.6116 7.54594 12.8654 7.16517 12.8654 6.91133ZM4.26929 15.3806C4.26929 15.5498 4.2039 15.7113 4.08467 15.8306C3.96544 15.9498 3.8039 16.0152 3.63467 16.0152H2.99621C2.82698 16.0152 2.66544 15.9498 2.54621 15.8306C2.42698 15.7113 2.36159 15.5498 2.36159 15.3806V14.7421C2.36159 14.3921 2.64621 14.1036 3.00006 14.1036H3.63852C3.80775 14.1036 3.96929 14.169 4.08852 14.2883C4.20775 14.4075 4.27313 14.569 4.27313 14.7383V15.3767H4.26929V15.3806ZM4.26929 12.0998C4.26929 12.269 4.2039 12.4306 4.08467 12.5498C3.96544 12.669 3.8039 12.7344 3.63467 12.7344H2.99621C2.82698 12.7344 2.66544 12.669 2.54621 12.5498C2.42698 12.4306 2.36159 12.269 2.36159 12.0998V11.4652C2.36159 11.1152 2.64621 10.8267 3.00006 10.8267H3.63852C3.80775 10.8267 3.96929 10.8921 4.08852 11.0113C4.20775 11.1306 4.27313 11.2921 4.27313 11.4613V12.0959H4.26929V12.0998ZM4.26929 8.85364C4.26929 9.02287 4.2039 9.18441 4.08467 9.30364C3.96544 9.42287 3.8039 9.48825 3.63467 9.48825H2.99621C2.82698 9.48825 2.66544 9.42287 2.54621 9.30364C2.42698 9.18441 2.36159 9.02287 2.36159 8.85364V8.21517C2.36159 7.86517 2.64621 7.57671 3.00006 7.57671H3.63852C3.80775 7.57671 3.96929 7.6421 4.08852 7.76133C4.20775 7.88056 4.27313 8.0421 4.27313 8.21133V8.84979H4.26929V8.85364ZM4.26929 5.60748C4.26929 5.77671 4.2039 5.93825 4.08467 6.05748C3.96544 6.17671 3.8039 6.2421 3.63467 6.2421H2.99621C2.82698 6.2421 2.66544 6.17671 2.54621 6.05748C2.42698 5.93825 2.36159 5.77671 2.36159 5.60748V4.97287C2.36159 4.62287 2.64621 4.33441 3.00006 4.33441H3.63852C3.80775 4.33441 3.96929 4.39979 4.08852 4.51902C4.20775 4.63825 4.27313 4.79979 4.27313 4.96902V5.60364H4.26929V5.60748ZM7.77313 15.3806C7.77313 15.5498 7.70775 15.7113 7.58852 15.8306C7.46929 15.9498 7.30775 16.0152 7.13852 16.0152H6.50006C6.33083 16.0152 6.16929 15.9498 6.05006 15.8306C5.93083 15.7113 5.86544 15.5498 5.86544 15.3806V14.7421C5.86544 14.3921 6.15006 14.1036 6.50006 14.1036H7.13852C7.30775 14.1036 7.46929 14.169 7.58852 14.2883C7.70775 14.4075 7.77313 14.569 7.77313 14.7383V15.3806ZM7.77313 12.0998C7.77313 12.269 7.70775 12.4306 7.58852 12.5498C7.46929 12.669 7.30775 12.7344 7.13852 12.7344H6.50006C6.33083 12.7344 6.16929 12.669 6.05006 12.5498C5.93083 12.4306 5.86544 12.269 5.86544 12.0998V11.4652C5.86544 11.1152 6.15006 10.8267 6.50006 10.8267H7.13852C7.30775 10.8267 7.46929 10.8921 7.58852 11.0113C7.70775 11.1306 7.77313 11.2921 7.77313 11.4613V12.0998ZM7.77313 8.85364C7.77313 9.02287 7.70775 9.18441 7.58852 9.30364C7.46929 9.42287 7.30775 9.48825 7.13852 9.48825H6.50006C6.33083 9.48825 6.16929 9.42287 6.05006 9.30364C5.93083 9.18441 5.86544 9.02287 5.86544 8.85364V8.21517C5.86544 7.86517 6.15006 7.57671 6.50006 7.57671H7.13852C7.30775 7.57671 7.46929 7.6421 7.58852 7.76133C7.70775 7.88056 7.77313 8.0421 7.77313 8.21133V8.85364ZM7.77313 5.60748C7.77313 5.77671 7.70775 5.93825 7.58852 6.05748C7.46929 6.17671 7.30775 6.2421 7.13852 6.2421H6.50006C6.33083 6.2421 6.16929 6.17671 6.05006 6.05748C5.93083 5.93825 5.86544 5.77671 5.86544 5.60748V4.97287C5.86544 4.62287 6.15006 4.33441 6.50006 4.33441H7.13852C7.30775 4.33441 7.46929 4.39979 7.58852 4.51902C7.70775 4.63825 7.77313 4.79979 7.77313 4.96902V5.60748ZM11.2731 5.60748C11.2731 5.77671 11.2077 5.93825 11.0885 6.05748C10.9693 6.17671 10.8077 6.2421 10.6385 6.2421H10.0001C9.83083 6.2421 9.66929 6.17671 9.55006 6.05748C9.43083 5.93825 9.36544 5.77671 9.36544 5.60748V4.97287C9.36544 4.62287 9.65006 4.33441 10.0001 4.33441H10.6385C10.8077 4.33441 10.9693 4.39979 11.0885 4.51902C11.2077 4.63825 11.2731 4.79979 11.2731 4.96902V5.60748Z" fill="#5867E8"/>
+</svg>  Key Contacts</h3>
                         <div class="card-controls">
                             <div class="span-controls">
-                                <button class="span-btn" data-span="1" title="Single column">1</button>
-                                <button class="span-btn active" data-span="2" title="Span 2 columns">2</button>
+                                <button class="span-btn active" data-span="1" title="Single column">1</button>
+                                <button class="span-btn" data-span="2" title="Span 2 columns">2</button>
                                 <button class="span-btn" data-span="3" title="Span 3 columns">3</button>
                             </div>
                             <div class="resize-handle" data-resize="card-2"></div>
                         </div>
                     </div>
-                    <div class="card-content">
-                        <img src="https://picsum.photos/600/200?random=1" alt="Wide sample image" />
-                        <p>This card spans across 2 columns, demonstrating the multi-column spanning feature.</p>
-                    </div>
+                    <div class="card-content"><img src="https://picsum.photos/600/200?random=1" alt="" /><p>This card spans across 2 columns, demonstrating the multi-column spanning feature.</p></div>
                 </div>
                 
-                <div class="card" draggable="true" data-card-id="card-3">
+                <div class="card" draggable="true" data-card-id="card-3" data-span="1">
                     <div class="card-header">
                         <h3>Short Card</h3>
                         <div class="resize-handle" data-resize="card-3"></div>
                     </div>
-                    <div class="card-content">
-                        <p>Brief content.</p>
-                    </div>
+                    <div class="card-content"><p>Brief content.</p></div>
                 </div>
             </div>
             
             <div class="column" id="column-1" data-column="1">
                 <div class="column-header">Column 2</div>
-                <div class="card" draggable="true" data-card-id="card-4">
+                <div class="card" draggable="true" data-card-id="card-4" data-span="1">
                     <div class="card-header">
-                        <h3><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.9231 15.269L15.5769 15.6152C15.1923 15.9998 14.6923 16.1921 14.1539 16.1921H13.1539C12.2308 16.1921 11.2308 15.4613 11.2308 14.1921V13.2305C11.2308 12.4613 11.577 11.9998 11.7693 11.7305L15.9231 7.49977C16.0385 7.38439 16.1539 7.11516 16.1539 6.96131V3.76901C16.1539 2.76901 15.3077 1.92285 14.3077 1.92285H4.46159C3.46159 1.92285 2.61544 2.84593 2.61544 3.76901H2.00005C1.30775 3.76901 0.769287 4.34593 0.769287 5.03824C0.769287 5.73054 1.30775 6.26901 2.00005 6.26901H2.61544V8.76901H2.00005C1.30775 8.76901 0.769287 9.30747 0.769287 9.99977C0.769287 10.6921 1.30775 11.2305 2.00005 11.2305H2.61544V13.7305H2.00005C1.30775 13.7305 0.769287 14.3075 0.769287 14.9613C0.769287 15.6536 1.30775 16.1921 2.00005 16.1921H2.61544C2.61544 17.4229 3.46159 18.0382 4.46159 18.0382H14.3077C15.3077 18.0382 16.1539 17.1921 16.1539 16.1921V15.3844C16.1539 15.1921 16.0769 15.1536 15.9231 15.269ZM12.7693 6.57652C12.7693 6.92267 12.5001 7.19191 12.1539 7.19191H6.0001C5.65395 7.19191 5.38472 6.92267 5.38472 6.57652V5.96114C5.38472 5.61498 5.65395 5.34575 6.0001 5.34575H12.1539C12.5001 5.34575 12.7693 5.61498 12.7693 5.96114V6.57652ZM10.0001 14.0386C10.0001 14.3848 9.73086 14.654 9.38471 14.654H6.0001C5.65395 14.654 5.38472 14.3848 5.38472 14.0386V13.4232C5.38472 13.0771 5.65395 12.8078 6.0001 12.8078H9.38471C9.73086 12.8078 10.0001 13.0771 10.0001 13.4232V14.0386ZM10.9232 10.3081C10.9232 10.6543 10.6539 10.9235 10.3078 10.9235H6.0001C5.65395 10.9235 5.38472 10.6543 5.38472 10.3081V9.69274C5.38472 9.34659 5.65395 9.07736 6.0001 9.07736H10.3078C10.6539 9.07736 10.9232 9.34659 10.9232 9.69274V10.3081ZM19.0385 8.61459L18.6539 8.22997C18.4232 7.9992 18.0385 7.9992 17.8078 8.22997L13.1155 13.0761C13.077 13.0761 13.077 13.153 13.077 13.153V14.1915C13.077 14.2684 13.077 14.3454 13.1539 14.3454H14.1539C14.1924 14.3454 14.2309 14.3069 14.2693 14.3069L19.0001 9.53766C19.3078 9.26843 19.3078 8.88382 19.0385 8.61459Z" fill="#5867E8"/></svg> Account Brief</h3>
+                        <h3><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.9231 15.269L15.5769 15.6152C15.1923 15.9998 14.6923 16.1921 14.1539 16.1921H13.1539C12.2308 16.1921 11.2308 15.4613 11.2308 14.1921V13.2305C11.2308 12.4613 11.577 11.9998 11.7693 11.7305L15.9231 7.49977C16.0385 7.38439 16.1539 7.11516 16.1539 6.96131V3.76901C16.1539 2.76901 15.3077 1.92285 14.3077 1.92285H4.46159C3.46159 1.92285 2.61544 2.84593 2.61544 3.76901H2.00005C1.30775 3.76901 0.769287 4.34593 0.769287 5.03824C0.769287 5.73054 1.30775 6.26901 2.00005 6.26901H2.61544V8.76901H2.00005C1.30775 8.76901 0.769287 9.30747 0.769287 9.99977C0.769287 10.6921 1.30775 11.2305 2.00005 11.2305H2.61544V13.7305H2.00005C1.30775 13.7305 0.769287 14.3075 0.769287 14.9613C0.769287 15.6536 1.30775 16.1921 2.00005 16.1921H2.61544C2.61544 17.4229 3.46159 18.0382 4.46159 18.0382H14.3077C15.3077 18.0382 16.1539 17.1921 16.1539 16.1921V15.3844C16.1539 15.1921 16.0769 15.1536 15.9231 15.269ZM12.7693 6.57652C12.7693 6.92267 12.5001 7.19191 12.1539 7.19191H6.0001C5.65395 7.19191 5.38472 6.92267 5.38472 6.57652V5.96114C5.38472 5.61498 5.65395 5.34575 6.0001 5.34575H12.1539C12.5001 5.34575 12.7693 5.61498 12.7693 5.96114V6.57652ZM10.0001 14.0386C10.0001 14.3848 9.73086 14.654 9.38471 14.654H6.0001C5.65395 14.654 5.38472 14.3848 5.38472 14.0386V13.4232C5.38472 13.0771 5.65395 12.8078 6.0001 12.8078H9.38471C9.73086 12.8078 10.0001 13.0771 10.0001 13.4232V14.0386ZM10.9232 10.3081C10.9232 10.6543 10.6539 10.9235 10.3078 10.9235H6.0001C5.65395 10.9235 5.38472 10.6543 5.38472 10.3081V9.69274C5.38472 9.34659 5.65395 9.07736 6.0001 9.07736H10.3078C10.6539 9.07736 10.9232 9.34659 10.9232 9.69274V10.3081ZM19.0385 8.61459L18.6539 8.22997C18.4232 7.9992 18.0385 7.9992 17.8078 8.22997L13.1155 13.0761C13.077 13.0761 13.077 13.153 13.077 13.153V14.1915C13.077 14.2684 13.077 14.3454 13.1539 14.3454H14.1539C14.1924 14.3454 14.2309 14.3069 14.2693 14.3069L19.0001 9.53766C19.3078 9.26843 19.3078 8.88382 19.0385 8.61459Z" fill="#5867E8"/></svg>   Account Brief</h3>
                         <div class="resize-handle" data-resize="card-4"></div>
                     </div>
-                    <div class="card-content">
-                        <p>This is a taller card with more content to demonstrate the masonry layout effect. The content can vary in height and the layout will adjust accordingly.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
+                    <div class="card-content"><p><strong>Executive Summary</strong></p>
+<p>TechCorp Solutions is a Technology company with significant growth potential in the enterprise software market. They're currently evaluating cloud solutions and have shown interest in our platform.</p>
+<p><strong>Service Cases</strong></p>
+<p>There are several active service cases, including a request for a secure password policy and a billing statement reprint. Other cases involve inquiries about billing discrepancies and service hours, with one case closed regarding turbine performance.</p>
+<p><strong>Engagement with Marketing Campaigns</strong></p>
+<p>Acme Corp has engaged with the Annual Customer Conference campaign, with a positive response recorded. This indicates a willingness to participate in ongoing marketing efforts.</p>
+<p><strong>Account Plan Vision &amp; Objectives</strong></p>
+<p>The vision for Acme is to be a trusted partner, fostering growth and collaboration. Key objectives include achieving $10 million in revenue, improving customer satisfaction (CSAT), and increasing sales in the EMEA region.</p>
+<p><strong>Open Opportunities</strong></p>
+<p>None</p>
+<p><strong>Competitive Landscape</strong></p>
+<p>Key competitors include Breitling and Rolex. Omega's strengths lie in its brand reputation and innovative technology, while weaknesses include high manufacturing costs and challenges in market differentiation.</p>
+<p><strong>Industry Trends</strong></p>
+<p>The luxury watch market is experiencing growth driven by trends such as an emphasis on craftsmanship, a booming pre-owned market, and a shift towards digital transformation. Sustainability practices are increasingly important among younger consumers.</p>
+<p><strong>Strategic Priorities</strong></p>
+<p>Acme’s strategic priorities focus on growth through partnerships, digital marketing initiatives, and data-driven decision-making. The company aims to solidify its market position while addressing competitive challenges.</p></div>
                 </div>
                 
-                <div class="card" draggable="true" data-card-id="card-5">
+                <div class="card" draggable="true" data-card-id="card-5" data-span="1">
                     <div class="card-header">
-                        <h3><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.9231 15.269L15.5769 15.6152C15.1923 15.9998 14.6923 16.1921 14.1539 16.1921H13.1539C12.2308 16.1921 11.2308 15.4613 11.2308 14.1921V13.2305C11.2308 12.4613 11.577 11.9998 11.7693 11.7305L15.9231 7.49977C16.0385 7.38439 16.1539 7.11516 16.1539 6.96131V3.76901C16.1539 2.76901 15.3077 1.92285 14.3077 1.92285H4.46159C3.46159 1.92285 2.61544 2.84593 2.61544 3.76901H2.00005C1.30775 3.76901 0.769287 4.34593 0.769287 5.03824C0.769287 5.73054 1.30775 6.26901 2.00005 6.26901H2.61544V8.76901H2.00005C1.30775 8.76901 0.769287 9.30747 0.769287 9.99977C0.769287 10.6921 1.30775 11.2305 2.00005 11.2305H2.61544V13.7305H2.00005C1.30775 13.7305 0.769287 14.3075 0.769287 14.9613C0.769287 15.6536 1.30775 16.1921 2.00005 16.1921H2.61544C2.61544 17.4229 3.46159 18.0382 4.46159 18.0382H14.3077C15.3077 18.0382 16.1539 17.1921 16.1539 16.1921V15.3844C16.1539 15.1921 16.0769 15.1536 15.9231 15.269ZM12.7693 6.57652C12.7693 6.92267 12.5001 7.19191 12.1539 7.19191H6.0001C5.65395 7.19191 5.38472 6.92267 5.38472 6.57652V5.96114C5.38472 5.61498 5.65395 5.34575 6.0001 5.34575H12.1539C12.5001 5.34575 12.7693 5.61498 12.7693 5.96114V6.57652ZM10.0001 14.0386C10.0001 14.3848 9.73086 14.654 9.38471 14.654H6.0001C5.65395 14.654 5.38472 14.3848 5.38472 14.0386V13.4232C5.38472 13.0771 5.65395 12.8078 6.0001 12.8078H9.38471C9.73086 12.8078 10.0001 13.0771 10.0001 13.4232V14.0386ZM10.9232 10.3081C10.9232 10.6543 10.6539 10.9235 10.3078 10.9235H6.0001C5.65395 10.9235 5.38472 10.6543 5.38472 10.3081V9.69274C5.38472 9.34659 5.65395 9.07736 6.0001 9.07736H10.3078C10.6539 9.07736 10.9232 9.34659 10.9232 9.69274V10.3081ZM19.0385 8.61459L18.6539 8.22997C18.4232 7.9992 18.0385 7.9992 17.8078 8.22997L13.1155 13.0761C13.077 13.0761 13.077 13.153 13.077 13.153V14.1915C13.077 14.2684 13.077 14.3454 13.1539 14.3454H14.1539C14.1924 14.3454 14.2309 14.3069 14.2693 14.3069L19.0001 9.53766C19.3078 9.26843 19.3078 8.88382 19.0385 8.61459Z" fill="#5867E8"/></svg> Scratch Pad</h3>
+                        <h3><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.9231 15.269L15.5769 15.6152C15.1923 15.9998 14.6923 16.1921 14.1539 16.1921H13.1539C12.2308 16.1921 11.2308 15.4613 11.2308 14.1921V13.2305C11.2308 12.4613 11.577 11.9998 11.7693 11.7305L15.9231 7.49977C16.0385 7.38439 16.1539 7.11516 16.1539 6.96131V3.76901C16.1539 2.76901 15.3077 1.92285 14.3077 1.92285H4.46159C3.46159 1.92285 2.61544 2.84593 2.61544 3.76901H2.00005C1.30775 3.76901 0.769287 4.34593 0.769287 5.03824C0.769287 5.73054 1.30775 6.26901 2.00005 6.26901H2.61544V8.76901H2.00005C1.30775 8.76901 0.769287 9.30747 0.769287 9.99977C0.769287 10.6921 1.30775 11.2305 2.00005 11.2305H2.61544V13.7305H2.00005C1.30775 13.7305 0.769287 14.3075 0.769287 14.9613C0.769287 15.6536 1.30775 16.1921 2.00005 16.1921H2.61544C2.61544 17.4229 3.46159 18.0382 4.46159 18.0382H14.3077C15.3077 18.0382 16.1539 17.1921 16.1539 16.1921V15.3844C16.1539 15.1921 16.0769 15.1536 15.9231 15.269ZM12.7693 6.57652C12.7693 6.92267 12.5001 7.19191 12.1539 7.19191H6.0001C5.65395 7.19191 5.38472 6.92267 5.38472 6.57652V5.96114C5.38472 5.61498 5.65395 5.34575 6.0001 5.34575H12.1539C12.5001 5.34575 12.7693 5.61498 12.7693 5.96114V6.57652ZM10.0001 14.0386C10.0001 14.3848 9.73086 14.654 9.38471 14.654H6.0001C5.65395 14.654 5.38472 14.3848 5.38472 14.0386V13.4232C5.38472 13.0771 5.65395 12.8078 6.0001 12.8078H9.38471C9.73086 12.8078 10.0001 13.0771 10.0001 13.4232V14.0386ZM10.9232 10.3081C10.9232 10.6543 10.6539 10.9235 10.3078 10.9235H6.0001C5.65395 10.9235 5.38472 10.6543 5.38472 10.3081V9.69274C5.38472 9.34659 5.65395 9.07736 6.0001 9.07736H10.3078C10.6539 9.07736 10.9232 9.34659 10.9232 9.69274V10.3081ZM19.0385 8.61459L18.6539 8.22997C18.4232 7.9992 18.0385 7.9992 17.8078 8.22997L13.1155 13.0761C13.077 13.0761 13.077 13.153 13.077 13.153V14.1915C13.077 14.2684 13.077 14.3454 13.1539 14.3454H14.1539C14.1924 14.3454 14.2309 14.3069 14.2693 14.3069L19.0001 9.53766C19.3078 9.26843 19.3078 8.88382 19.0385 8.61459Z" fill="#5867E8"/></svg>   Scratch Pad</h3>
                         <div class="resize-handle" data-resize="card-5"></div>
                     </div>
                     <div class="card-content rte-content">
@@ -215,49 +222,36 @@
                             <button class="rte-btn" type="button" data-cmd="insertUnorderedList" title="Bulleted list">• List</button>
                             <button class="rte-btn" type="button" data-cmd="insertOrderedList" title="Numbered list">1. List</button>
                         </div>
-                        <div class="rte-editor" contenteditable="true" spellcheck="true" data-placeholder="Start typing..."></div>
+                        <div class="rte-editor" contenteditable="true" spellcheck="true" data-placeholder="Start typing..."><p>Start typing...</p></div>
                     </div>
                 </div>
             </div>
             
             <div class="column" id="column-2" data-column="2">
                 <div class="column-header">Column 3</div>
-                <div class="card" draggable="true" data-card-id="card-6">
+                <div class="card" draggable="true" data-card-id="card-6" data-span="1">
                     <div class="card-header">
                         <h3>List Card</h3>
                         <div class="resize-handle" data-resize="card-6"></div>
                     </div>
-                    <div class="card-content">
-                        <ul>
-                            <li>Feature 1</li>
-                            <li>Feature 2</li>
-                            <li>Feature 3</li>
-                            <li>Feature 4</li>
-                        </ul>
-                    </div>
+                    <div class="card-content"><ul><li>Feature 1</li><li>Feature 2</li><li>Feature 3</li><li>Feature 4</li></ul></div>
                 </div>
                 
-                <div class="card" draggable="true" data-card-id="card-7">
+                <div class="card" draggable="true" data-card-id="card-7" data-span="1">
                     <div class="card-header">
                         <h3>Quote Card</h3>
                         <div class="resize-handle" data-resize="card-7"></div>
                     </div>
-                    <div class="card-content">
-                        <blockquote>
-                            "The best way to predict the future is to create it."
-                        </blockquote>
-                        <p>- Peter Drucker</p>
-                    </div>
+                    <div class="card-content"><p>"The best way to predict the future is to create it."</p>
+<ul><li>Peter Drucker</li></ul></div>
                 </div>
                 
-                <div class="card" draggable="true" data-card-id="card-8">
+                <div class="card" draggable="true" data-card-id="card-8" data-span="1">
                     <div class="card-header">
                         <h3>Another Card</h3>
                         <div class="resize-handle" data-resize="card-8"></div>
                     </div>
-                    <div class="card-content">
-                        <p>More sample content to fill out the layout.</p>
-                    </div>
+                    <div class="card-content"><p>More sample content to fill out the layout.</p></div>
                 </div>
             </div>
             

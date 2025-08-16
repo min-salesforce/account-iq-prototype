@@ -282,8 +282,11 @@ body {
     position: relative;
     min-width: 200px;
     min-height: 150px;
+    max-height: var(--card-default-max-height, 420px); /* default max height, overridden on user resize */
     resize: none; /* use custom resize handle logic for snapping */
-    overflow: auto;
+    overflow: hidden; /* content scrolls, header stays fixed */
+    display: flex;
+    flex-direction: column;
     border: 1px solid #e5e7eb;
     will-change: width, height;
 }
@@ -312,7 +315,7 @@ body {
 
 .card-header h3 {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 400;
     color: #1f2937;
     margin: 0;
     flex: 1;
@@ -409,8 +412,11 @@ body {
 
 /* Card content */
 .card-content {
-    color: #4b5563;
-    font-size: 0.9rem;
+    font-size: 13px;
+    line-height: 18px;
+    flex: 1 1 auto; /* fill remaining space so header stays visible */
+    min-height: 0; /* allow child to be scrollable within flex container */
+    overflow: auto;
 }
 
 /* RTE for Scratch Pad */

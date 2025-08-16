@@ -17,7 +17,221 @@ class MasonryLayout {
         this.setupRTE();
         this.setupTabDragAndDrop();
         this.setupCardHeaderActions();
+        this.syncFromContentPlan();
         console.log('Masonry Layout initialized');
+    }
+
+    async syncFromContentPlan() {
+        try {
+            const res = await fetch('content.md');
+            if (!res.ok) throw new Error('fetch failed');
+            const text = await res.text();
+            const plan = this.parseContentPlan(text);
+            this.applyCardsFromPlan(plan.cards || {});
+        } catch (err) {
+            console.warn('Content plan sync skipped (serve over http to enable):', err);
+        }
+    }
+
+    parseContentPlan(mdText) {
+        const lines = mdText.split(/\r?\n/);
+        const cards = {};
+        let inCards = false;
+        let pendingCardId = null;
+        let pendingKey = null;
+        let pendingContent = [];
+
+        const flushPending = () => {
+            if (pendingCardId && pendingKey === 'content' && pendingContent.length) {
+                const val = pendingContent.join('\n').trim();
+                cards[pendingCardId] = cards[pendingCardId] || {};
+                cards[pendingCardId][pendingKey] = val;
+            }
+            pendingCardId = null;
+            pendingKey = null;
+            pendingContent = [];
+        };
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            if (/^##\s+Cards/.test(line)) { inCards = true; continue; }
+            if (inCards && /^##\s+/.test(line)) { inCards = false; flushPending(); break; }
+            if (!inCards) continue;
+
+            // content key-value e.g. - **card-5.title**: Scratch Pad
+            const m = line.match(/^\s*-\s*\*\*(card-\d+)\.(\w+)\*\*:\s*(.*)$/);
+            if (m) {
+                // flush any pending block
+                if (pendingKey === 'content' && pendingContent.length) flushPending();
+                const [, cid, key, rawVal] = m;
+                if (rawVal.trim() === '|' && key === 'content') {
+                    pendingCardId = cid;
+                    pendingKey = 'content';
+                    pendingContent = [];
+                } else {
+                    cards[cid] = cards[cid] || {};
+                    cards[cid][key] = rawVal.trim();
+                }
+                continue;
+            }
+            // collect multiline content
+            if (pendingKey === 'content') {
+                const contLine = line.replace(/^\s{2,}/, '');
+                // stop on next list item or section
+                if (/^\s*-\s*\*\*/.test(line) || /^##\s+/.test(line) || /^###\s+/.test(line)) {
+                    flushPending();
+                    // reprocess this line in outer loop
+                    i -= 1;
+                } else {
+                    pendingContent.push(contLine);
+                }
+            }
+        }
+        // final flush
+        if (pendingKey === 'content' && pendingContent.length) flushPending();
+        return { cards };
+    }
+
+    applyCardsFromPlan(cardsMap) {
+        Object.keys(cardsMap).forEach((cardId) => {
+            const cfg = cardsMap[cardId];
+            const cardEl = document.querySelector(`[data-card-id="${cardId}"]`);
+            if (!cardEl) return;
+
+            // Title
+            if (cfg.title) {
+                const h3 = cardEl.querySelector('.card-header h3');
+                if (h3) {
+                    const firstEl = h3.firstElementChild;
+                    if (firstEl && firstEl.tagName && firstEl.tagName.toLowerCase() === 'svg') {
+                        const svg = firstEl.cloneNode(true);
+                        h3.innerHTML = '';
+                        h3.appendChild(svg);
+                        h3.append(' ' + cfg.title);
+                    } else {
+                        h3.textContent = cfg.title;
+                    }
+                }
+            }
+
+            // Span
+            if (cfg.span) {
+                const span = parseInt(String(cfg.span), 10);
+                if (!Number.isNaN(span)) {
+                    const clamped = this.clampSpanToAvailableColumns(cardEl, span);
+                    const w = this.computeWidthForSpan(cardEl, clamped);
+                    cardEl.style.width = w + 'px';
+                    this.applyCardSpan(cardEl, clamped);
+                }
+            }
+
+            // Body content
+            const isRTE = cfg.type === 'rte';
+            if (isRTE) {
+                const editor = cardEl.querySelector('.rte-editor');
+                if (editor && cfg.content) editor.innerHTML = this.renderContentHTML(cfg.content);
+            } else {
+                const body = cardEl.querySelector('.card-content');
+                if (body && !body.classList.contains('rte-content')) {
+                    let html = '';
+                    if (cfg.image) {
+                        html += `<img src="${cfg.image}" alt="" />`;
+                    }
+                    if (cfg.content) {
+                        html += this.renderContentHTML(cfg.content);
+                    }
+                    if (html) body.innerHTML = html;
+                }
+            }
+        });
+    }
+
+    renderContentHTML(text) {
+        const src = (text || '').trim();
+        if (!src) return '';
+
+        // Process fenced code blocks first
+        let remaining = src;
+        const codeBlocks = [];
+        remaining = remaining.replace(/```([\s\S]*?)```/g, (_, code) => {
+            const token = `__CODE_BLOCK_${codeBlocks.length}__`;
+            codeBlocks.push(`<pre><code>${this.escapeHtml(code)}</code></pre>`);
+            return token;
+        });
+
+        // Ensure bold-only lines (e.g., **Executive Summary**) become their own blocks
+        const linesNorm = [];
+        const boldOnlyRe = /^\s*\*\*[^*]+\*\*\s*:?\s*$/;
+        remaining.split(/\r?\n/).forEach((ln) => {
+            if (boldOnlyRe.test(ln)) {
+                if (linesNorm.length && linesNorm[linesNorm.length - 1] !== '') linesNorm.push('');
+                linesNorm.push(ln);
+                linesNorm.push('');
+            } else {
+                linesNorm.push(ln);
+            }
+        });
+        remaining = linesNorm.join('\n');
+
+        const blocks = remaining.split(/\n\s*\n/);
+        const htmlBlocks = blocks.map(block => {
+            const lines = block.split(/\n/);
+
+            // Headings
+            const headingMatch = block.match(/^\s*(#{1,6})\s+(.+)\s*$/);
+            if (headingMatch && lines.length === 1) {
+                const level = headingMatch[1].length;
+                const text = headingMatch[2];
+                const content = this.inlineMarkdownToHtml(text);
+                return `<h${level}>${content}</h${level}>`;
+            }
+
+            // Unordered list
+            if (lines.every(l => /^\s*[-*]\s+/.test(l))) {
+                const items = lines.map(l => l.replace(/^\s*[-*]\s+/, ''));
+                const lis = items.map(it => `<li>${this.inlineMarkdownToHtml(it)}</li>`).join('');
+                return `<ul>${lis}</ul>`;
+            }
+
+            // Ordered list
+            if (lines.every(l => /^\s*\d+\.\s+/.test(l))) {
+                const items = lines.map(l => l.replace(/^\s*\d+\.\s+/, ''));
+                const lis = items.map(it => `<li>${this.inlineMarkdownToHtml(it)}</li>`).join('');
+                return `<ol>${lis}</ol>`;
+            }
+
+            // Blockquote
+            if (lines.every(l => /^\s*>\s?/.test(l))) {
+                const content = lines.map(l => l.replace(/^\s*>\s?/, '')).join(' ');
+                return `<blockquote>${this.inlineMarkdownToHtml(content)}</blockquote>`;
+            }
+
+            // Paragraph
+            return `<p>${this.inlineMarkdownToHtml(block)}</p>`;
+        });
+
+        let html = htmlBlocks.join('\n');
+        // Restore code blocks
+        codeBlocks.forEach((cb, i) => {
+            html = html.replaceAll(`__CODE_BLOCK_${i}__`, cb);
+        });
+        return html;
+    }
+
+    inlineMarkdownToHtml(text) {
+        // Escape HTML first
+        let s = this.escapeHtml(text);
+        // Inline code `code`
+        s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+        // Bold **text** or __text__
+        s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+        // Italic *text* or _text_ (after bold to avoid conflicts)
+        s = s.replace(/(^|\W)\*([^*]+)\*(?=$|\W)/g, '$1<em>$2</em>');
+        s = s.replace(/(^|\W)_([^_]+)_(?=$|\W)/g, '$1<em>$2</em>');
+        // Links [text](url)
+        s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+        return s;
     }
 
     setupCardHeaderActions() {
@@ -308,6 +522,14 @@ class MasonryLayout {
         
         if (!card) return;
         
+        // Freeze current height to prevent a jump when removing max-height
+        const rect = card.getBoundingClientRect();
+        card.dataset.prevTransition = card.style.transition || '';
+        card.style.transition = 'none';
+        card.style.height = rect.height + 'px';
+        // Remove default max-height so user can freely resize beyond it
+        card.style.setProperty('max-height', 'none');
+
         this.resizeData = {
             card: card,
             startX: e.clientX,
@@ -365,6 +587,14 @@ class MasonryLayout {
         
         console.log('Resize ended for:', card.dataset.cardId);
         
+        // Restore transition after resizing
+        if (card.dataset.prevTransition !== undefined) {
+            card.style.transition = card.dataset.prevTransition;
+            delete card.dataset.prevTransition;
+        } else {
+            card.style.transition = '';
+        }
+
         this.resizeData = null;
     }
 
